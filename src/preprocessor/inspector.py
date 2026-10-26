@@ -1,13 +1,12 @@
 import pandas as pd
 # ask the user for the file pathe
-# user_input = input("Enter CSV path: ")
-user_input = "C:/Users/Elitebook/Desktop/roomay vscode/numerical-data-preprocessor/data/cleaned_data/inspector_data.csv"
+user_input = input("Enter CSV path: ")
+
 
 # load the csv path
 def load_csv(path):
   try:
     data = pd.read_csv(path)  
-    column_names = data.columns
   except FileNotFoundError:
     print("File Not Found")
   except pd.errors.EmptyDataError:
@@ -41,7 +40,7 @@ def numerical_columns_operation(data):
 
 # Missing Values by Row
 def missing_values_operation(data):
-  missing_values = data.isna().sum().sum()
+  missing_values = int(data.isna().sum().sum())
   nan_rows = data[data.isna().any(axis=1)]
   return {"Total missing values" : {missing_values}, "Affected rows" : {len(nan_rows)}}
 
@@ -52,7 +51,7 @@ def spot_indexes_operation(data, column_names):
     if data[column_names[i]].dtype in ['int64', 'float64']:
       if data[column_names[i]].is_unique:
         # if (data[column_names[i]].diff().dropna()==1).all():
-          result.append(column_names[i])
+        result.append(column_names[i])
   return result
 index_columns = spot_indexes_operation(data, column_names)
 
@@ -133,6 +132,5 @@ def print_profile(profile):
 
   print(f"\nCONSTANT COLUMNS\n{profile['constant_columns']}")
 
-  
   
 print_profile(profile)
