@@ -3,7 +3,6 @@ import pandas as pd
 # ask the user for the file path
 user_input = input("Enter CSV path: ")
 
-
 # load the csv path
 def load_csv(path):
   try:
